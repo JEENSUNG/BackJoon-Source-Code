@@ -47,6 +47,6 @@ public class Main {
 				dfs(depth+1);
 				visit[i] = false;
 			}
-		}
+		} 
 	}
 }
