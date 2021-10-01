@@ -1,0 +1,31 @@
+package first;
+
+import java.util.*;
+public class sex{
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int x = scan.nextInt();
+        int y = scan.nextInt();
+        int gcd = 0;
+        if(x >= y) {
+        	System.out.println(gcd(x,y));
+        	gcd = gcd(x,y);
+        }
+        else {
+        	System.out.println(gcd(y,x));
+        	gcd = gcd(y,x);
+        }
+		System.out.println((x * y)/gcd);
+    }
+    public static int gcd(int a, int b){
+        while(true){
+        	int r = a;
+            a = b;
+            b = r % b;
+            if(b == 0) {
+            	break;
+            }
+        }
+        return a;
+    }
+}
