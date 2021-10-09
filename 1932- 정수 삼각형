@@ -1,0 +1,31 @@
+package first;
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        
+        int[][] arr = new int[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < i+1; j++){
+                arr[i][j] = scan.nextInt();
+            }
+        }
+        int sum = arr[0][0];
+        for(int i = 1; i < n; i++){
+            for(int j = 0; j < i+1; j++){
+            	if(j == 0)
+            		arr[i][j] += arr[i-1][j];
+            	else if(j == i)
+            		arr[i][j] += arr[i-1][j-1];
+            	else
+            		arr[i][j] += Math.max(arr[i-1][j-1], arr[i-1][j]);
+            	sum = Math.max(sum,  arr[i][j]);
+            }
+            
+        }
+        
+        System.out.println(sum);
+    }
+}
