@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Main {
+    static int n,m;
+    static int[] arr;
+    static int[] ans;
+    static boolean[] visit;
+    static long max;
+	static int[] ten;
+	static long sum;
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		n = scan.nextInt();
+		m = scan.nextInt();
+		
+		arr = new int[n+1];
+		ans = new int[n+1];
+		for(int i = 1; i <= n; i++) {
+			arr[i] = scan.nextInt();
+			ans[i] = scan.nextInt();
+		}
+		ten = new int[10];
+		visit = new boolean[n+1];
+		dfs(0,0,0);
+		System.out.println(max);
+	}
+	public static void dfs(int index, long sum, int p) {
+		ten[p] += 1;
+		if(index == m) {
+			for(int i = 1; i <= n; i++)
+				sum += (ten[p-1] - 1) * ten[p];
+			max = Math.max(max, sum);
+			ten = new int[10];
+			return;
+		}
+		for(int i = 1; i <= n; i++) {
+			if(!visit[i]) {
+				visit[i] = true;
+				dfs(index + 1, sum + arr[i], ans[i]);
+				visit[i] = false;
+			}
+		}
+	}
+}
