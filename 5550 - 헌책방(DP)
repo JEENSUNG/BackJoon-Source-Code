@@ -1,3 +1,5 @@
+package first;
+
 import java.util.Scanner;
 
 public class Main {
@@ -5,38 +7,50 @@ public class Main {
     static int[] arr;
     static int[] ans;
     static boolean[] visit;
-    static long max;
+    static long max = -50;
 	static int[] ten;
 	static long sum;
+	static int[] dp;
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		n = scan.nextInt();
 		m = scan.nextInt();
 		
-		arr = new int[n+1];
-		ans = new int[n+1];
-		for(int i = 1; i <= n; i++) {
+		arr = new int[n];
+		ans = new int[n];
+		for(int i = 0; i < n; i++) {
 			arr[i] = scan.nextInt();
 			ans[i] = scan.nextInt();
 		}
-		ten = new int[10];
-		visit = new boolean[n+1];
+		dp = new int[m];
+		ten = new int[11];
+		visit = new boolean[n];
 		dfs(0,0,0);
 		System.out.println(max);
+		scan.close();
 	}
-	public static void dfs(int index, long sum, int p) {
-		ten[p] += 1;
+	public static void dfs(int start, int index, long sum) {
 		if(index == m) {
-			for(int i = 1; i <= n; i++)
-				sum += (ten[p-1] - 1) * ten[p];
-			max = Math.max(max, sum);
-			ten = new int[10];
+			for(int i = 0; i < m; i++) {
+				for(int j = 1; j <= 10; j++) {
+					if(dp[i] == j) {
+						ten[j] += 1;
+						continue;
+					}
+				}
+			}
+			for(int i = 0; i <= 10; i++) {
+				sum += (ten[i] - 1) * (ten[i]);
+			}
+			max = Math.max(sum, max);
+			ten = new int[11];
 			return;
 		}
-		for(int i = 1; i <= n; i++) {
+		for(int i = start; i < n; i++) {
 			if(!visit[i]) {
 				visit[i] = true;
-				dfs(index + 1, sum + arr[i], ans[i]);
+				dp[index] = ans[i];
+				dfs(i + 1, index + 1, sum + arr[i]);
 				visit[i] = false;
 			}
 		}
