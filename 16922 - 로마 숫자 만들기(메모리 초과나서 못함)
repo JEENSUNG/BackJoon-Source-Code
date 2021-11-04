@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Main {
+    static int n;
+	static int sum;
+	static int[] arr;
+	static ArrayList<Integer> list;
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		n = scan.nextInt();
+		arr = new int[4];
+		arr[0] = 1; arr[1] = 5; arr[2] = 10; arr[3] = 50;
+		list = new ArrayList<Integer>();
+
+		dfs(0,0);
+		HashSet<Integer> hashSet = new HashSet<Integer>(list);
+		ArrayList<Integer> resultList = new ArrayList<Integer>(hashSet);
+		
+		System.out.println(resultList.size());
+		scan.close();
+	}
+	public static void dfs(int index, int sum) {
+		if(index == n) {
+			list.add(sum);
+			return;
+		}
+		
+		for(int i = 0; i < 4; i++) {
+			dfs(index + 1, sum + arr[i]);
+		}
+	}
+}
