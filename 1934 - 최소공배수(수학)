@@ -1,0 +1,29 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        while(n-- > 0){
+            int x = scan.nextInt();
+            int y = scan.nextInt();
+            
+            if(x < y) {
+            	int t = x;
+            	x = y;
+            	y = t; 
+            }
+            System.out.println((x * y)/gcd(x,y));
+        }
+    }
+    public static int gcd(int a, int b) {
+    	while(true) {
+    		int r = a;
+    		a = b;
+    		b = r % b;
+    		if(b == 0) {
+    			break;
+    		}
+    	}
+    	return a;
+    }
+}
